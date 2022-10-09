@@ -75,6 +75,27 @@ using Cofiel.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "D:\Work\C#\NET_CORE\Cofiel\_Imports.razor"
+using Cofiel.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "D:\Work\C#\NET_CORE\Cofiel\_Imports.razor"
+using Cofiel.Controllers;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "D:\Work\C#\NET_CORE\Cofiel\_Imports.razor"
+using Cofiel.Services;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/counter")]
     public partial class Counter : Microsoft.AspNetCore.Components.ComponentBase
     {

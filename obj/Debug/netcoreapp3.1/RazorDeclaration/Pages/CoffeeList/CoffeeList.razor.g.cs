@@ -75,6 +75,28 @@ using Cofiel.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "D:\Work\C#\NET_CORE\Cofiel\_Imports.razor"
+using Cofiel.Models;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 11 "D:\Work\C#\NET_CORE\Cofiel\_Imports.razor"
+using Cofiel.Controllers;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "D:\Work\C#\NET_CORE\Cofiel\_Imports.razor"
+using Cofiel.Services;
+
+#line default
+#line hidden
+#nullable disable
+    [Microsoft.AspNetCore.Components.RouteAttribute("/coffeelist")]
     public partial class CoffeeList : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
@@ -82,6 +104,20 @@ using Cofiel.Shared;
         {
         }
         #pragma warning restore 1998
+#nullable restore
+#line 38 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
+       
+    private List<Coffee> _coffees;
+
+    protected override void OnInitialized()
+    {
+        _coffees = _coffeeService.GetCoffees();
+    }
+
+#line default
+#line hidden
+#nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICoffeeService _coffeeService { get; set; }
     }
 }
 #pragma warning restore 1591
