@@ -9,5 +9,7 @@ namespace Cofiel.Services
     interface ICoffeeService
     {
         List<Coffee> GetCoffees();
+
+        Coffee GetCoffeeById(Guid id);
     }
 }

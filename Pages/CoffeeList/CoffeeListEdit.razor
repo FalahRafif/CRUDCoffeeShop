@@ -1,7 +1,52 @@
-﻿@page "/coffeelist/{id}"
+﻿@page "/coffeelist/{Id}"
+@inject ICoffeeService _coffeeService
+
 <h3>Edit Coffee</h3>
 
-<p>Edit @Id</p>
+<div class="row">
+    <div class="col-sm-12">
+        @*////////////////// Card //////////////////*@
+        <div class="card">
+            <div class="card-body">
+                @*////////////////// Form //////////////////*@
+                <EditForm Model="_coffee">
+                    @*html style*@
+                    <div class="form-group">
+                        <label>Id</label>
+                        <input type="text" class="form-control" id="id" name="id" value="@_coffee.Id" disabled />
+                    </div>
+                    @*razor compent style*@
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText class="form-control" id="name" name="name" @bind-Value="_coffee.Name"></InputText>
+                    </div>
+                </EditForm>
+                @*////////////////// End Form //////////////////*@
+            </div>
+        </div>
+        @*////////////////// End Card //////////////////*@
+    </div>
+</div>
 @code {
+    [Parameter]
     public string Id { get; set; }
+
+    private Coffee _coffee { get; set; }
+
+    protected override void OnInitialized()
+    {
+        GetData();
+    }
+
+    public void GetData()
+    {
+        try
+        {
+            _coffee = _coffeeService.GetCoffeeById(Guid.Parse(Id));
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
 }

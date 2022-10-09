@@ -23,6 +23,11 @@ namespace Cofiel.Controllers
             }
         };
 
+        public Coffee GetCoffeeById(Guid id)
+        {
+            return _Coffees.SingleOrDefault(x => x.Id.Equals(id));
+        }
+
         public List<Coffee> GetCoffees()
         {
             return _Coffees;
