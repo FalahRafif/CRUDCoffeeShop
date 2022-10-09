@@ -27,6 +27,7 @@
                                     <td>@coffee.Name</td>
                                     <td>
                                         <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
+                                        <button class="btn btn-danger" @onclick="() => DeleteCoffee(coffee.Id)">Delete</button>
                                     </td>
                                 </tr>
                             }
@@ -46,5 +47,17 @@
     protected override void OnInitialized()
     {
         _coffees = _coffeeService.GetCoffees();
+    }
+
+    private void DeleteCoffee(Guid id)
+    {
+        try
+        {
+            _coffeeService.DeleteCoffee(id);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 }

@@ -23,6 +23,12 @@ namespace Cofiel.Controllers
             }
         };
 
+        public void DeleteCoffee(Guid id)
+        {
+            var getCoffee = GetCoffeeById(id);
+            _Coffees.Remove(getCoffee);
+        }
+
         public Coffee GetCoffeeById(Guid id)
         {
             return _Coffees.SingleOrDefault(x => x.Id.Equals(id));

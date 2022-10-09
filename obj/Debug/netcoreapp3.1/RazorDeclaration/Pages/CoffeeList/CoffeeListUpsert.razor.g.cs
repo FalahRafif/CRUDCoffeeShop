@@ -128,7 +128,7 @@ using Cofiel.Services;
 
     }
 
-    public void GetData()
+    private void GetData()
     {
         try
         {
@@ -140,7 +140,7 @@ using Cofiel.Services;
         }
     }
 
-    public void SubmitForm()
+    private void SubmitForm()
     {
         try
         {

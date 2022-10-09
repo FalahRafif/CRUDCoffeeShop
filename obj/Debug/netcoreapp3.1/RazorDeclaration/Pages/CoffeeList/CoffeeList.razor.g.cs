@@ -105,13 +105,25 @@ using Cofiel.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 43 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
+#line 44 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
        
     private List<Coffee> _coffees;
 
     protected override void OnInitialized()
     {
         _coffees = _coffeeService.GetCoffees();
+    }
+
+    private void DeleteCoffee(Guid id)
+    {
+        try
+        {
+            _coffeeService.DeleteCoffee(id);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
 #line default
