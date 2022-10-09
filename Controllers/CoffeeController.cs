@@ -32,5 +32,11 @@ namespace Cofiel.Controllers
         {
             return _Coffees;
         }
+
+        public void UpdateCoffee(Coffee data)
+        {
+            var getCoffee = GetCoffeeById(data.Id);
+            getCoffee.Name = data.Name;
+        }
     }
 }

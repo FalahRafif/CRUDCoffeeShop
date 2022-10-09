@@ -1,5 +1,6 @@
 ﻿@page "/coffeelist/{Id}"
 @inject ICoffeeService _coffeeService
+@inject NavigationManager _navigation
 
 <h3>Edit Coffee</h3>
 
@@ -9,7 +10,7 @@
         <div class="card">
             <div class="card-body">
                 @*////////////////// Form //////////////////*@
-                <EditForm Model="_coffee">
+                <EditForm Model="_coffee" OnSubmit="SubmitForm">
                     @*html style*@
                     <div class="form-group">
                         <label>Id</label>
@@ -20,6 +21,7 @@
                         <label>Name</label>
                         <InputText class="form-control" id="name" name="name" @bind-Value="_coffee.Name"></InputText>
                     </div>
+                    <button type="submit" class="btn btn-primary">Update</button>
                 </EditForm>
                 @*////////////////// End Form //////////////////*@
             </div>
@@ -43,6 +45,19 @@
         try
         {
             _coffee = _coffeeService.GetCoffeeById(Guid.Parse(Id));
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    public void SubmitForm()
+    {
+        try
+        {
+            _coffeeService.UpdateCoffee(_coffee);
+            _navigation.NavigateTo("coffeelist");
         }
         catch (Exception ex)
         {

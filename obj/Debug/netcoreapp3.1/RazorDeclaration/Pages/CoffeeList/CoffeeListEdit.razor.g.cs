@@ -129,9 +129,23 @@ using Cofiel.Services;
         }
     }
 
+    public void SubmitForm()
+    {
+        try
+        {
+            _coffeeService.UpdateCoffee(_coffee);
+            _navigation.NavigateTo("coffeelist");
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigation { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICoffeeService _coffeeService { get; set; }
     }
 }
