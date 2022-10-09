@@ -13,23 +13,23 @@ namespace Cofiel.Controllers
         {
             new Coffee
             {
-                Id = Guid.NewGuid(),
+                Id = 0,
                 Name = "Kopi Hitam"
             },
             new Coffee
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "Kopi Abu-Abu"
             }
         };
 
-        public void DeleteCoffee(Guid id)
+        public void DeleteCoffee(int id)
         {
             var getCoffee = GetCoffeeById(id);
             _Coffees.Remove(getCoffee);
         }
 
-        public Coffee GetCoffeeById(Guid id)
+        public Coffee GetCoffeeById(int id)
         {
             return _Coffees.SingleOrDefault(x => x.Id.Equals(id));
         }
@@ -41,7 +41,7 @@ namespace Cofiel.Controllers
 
         public void InsertCoffee(Coffee data)
         {
-            var id = Guid.NewGuid();
+            var id = 3;
             data.Id = id;
 
             _Coffees.Add(data);
