@@ -96,8 +96,8 @@ using Cofiel.Services;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/coffeelist")]
-    public partial class CoffeeList : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/coffeelist{id}")]
+    public partial class CoffeeListEdit : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,19 +105,13 @@ using Cofiel.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
+#line 5 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeListEdit.razor"
        
-    private List<Coffee> _coffees;
-
-    protected override void OnInitialized()
-    {
-        _coffees = _coffeeService.GetCoffees();
-    }
+    public string Id { get; set; }
 
 #line default
 #line hidden
 #nullable disable
-        [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICoffeeService _coffeeService { get; set; }
     }
 }
 #pragma warning restore 1591

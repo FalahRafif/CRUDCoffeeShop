@@ -13,6 +13,7 @@
                         <tr>
                             <th scope="col">Id</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,9 @@
                                 <tr>
                                     <th scope="row">@coffee.Id</th>
                                     <td>@coffee.Name</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
+                                    </td>
                                 </tr>
                             }
                         }

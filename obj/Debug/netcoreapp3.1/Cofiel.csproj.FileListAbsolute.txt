@@ -52,3 +52,5 @@ D:\Work\C#\NET_CORE\Cofiel\obj\Debug\netcoreapp3.1\Cofiel.genruntimeconfig.cache
 D:\Work\C#\NET_CORE\Cofiel\obj\Debug\netcoreapp3.1\Cofiel.csproj.CopyComplete
 D:\Work\C#\NET_CORE\Cofiel\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\CoffeeList\CoffeeList.razor.g.cs
 D:\Work\C#\NET_CORE\Cofiel\obj\Debug\netcoreapp3.1\Razor\Pages\CoffeeList\CoffeeList.razor.g.cs
+D:\Work\C#\NET_CORE\Cofiel\obj\Debug\netcoreapp3.1\RazorDeclaration\Pages\CoffeeList\CoffeeListEdit.razor.g.cs
+D:\Work\C#\NET_CORE\Cofiel\obj\Debug\netcoreapp3.1\Razor\Pages\CoffeeList\CoffeeListEdit.razor.g.cs
