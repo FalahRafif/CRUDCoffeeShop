@@ -21,7 +21,14 @@
                         <label>Name</label>
                         <InputText class="form-control" id="name" name="name" @bind-Value="_coffee.Name"></InputText>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    @if (_pageMode == "edit")
+                    { 
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    }
+                    else if (_pageMode == "new")
+                    { 
+                        <button type="submit" class="btn btn-primary">Insert</button>
+                    }
                 </EditForm>
                 @*////////////////// End Form //////////////////*@
             </div>
@@ -35,12 +42,23 @@
 
     private Coffee _coffee { get; set; }
 
+    private string _pageMode = "new";
+
     protected override void OnInitialized()
     {
-        GetData();
+        if(!string.IsNullOrEmpty(Id) && Id.Equals("new"))
+        {
+            _coffee = new Coffee();
+        }
+        else
+        {
+            _pageMode = "edit";
+            GetData();
+        }
+
     }
 
-    public void GetData()
+    private void GetData()
     {
         try
         {
@@ -52,12 +70,20 @@
         }
     }
 
-    public void SubmitForm()
+    private void SubmitForm()
     {
         try
         {
-            _coffeeService.UpdateCoffee(_coffee);
-            _navigation.NavigateTo("coffeelist");
+            if (_pageMode == "edit")
+            {
+                _coffeeService.UpdateCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
+            else if (_pageMode == "new")
+            {
+                _coffeeService.InsertCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
         }
         catch (Exception ex)
         {

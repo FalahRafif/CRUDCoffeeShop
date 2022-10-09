@@ -33,10 +33,20 @@ namespace Cofiel.Controllers
             return _Coffees;
         }
 
+        public void InsertCoffee(Coffee data)
+        {
+            var id = Guid.NewGuid();
+            data.Id = id;
+
+            _Coffees.Add(data);
+        }
+
         public void UpdateCoffee(Coffee data)
         {
             var getCoffee = GetCoffeeById(data.Id);
             getCoffee.Name = data.Name;
         }
+
+
     }
 }

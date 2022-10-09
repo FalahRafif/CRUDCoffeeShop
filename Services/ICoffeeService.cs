@@ -13,5 +13,7 @@ namespace Cofiel.Services
         Coffee GetCoffeeById(Guid id);
 
         void UpdateCoffee(Coffee data);
+
+        void InsertCoffee(Coffee data);
     }
 }

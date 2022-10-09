@@ -97,7 +97,7 @@ using Cofiel.Services;
 #line hidden
 #nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/coffeelist/{Id}")]
-    public partial class CoffeeListEdit : Microsoft.AspNetCore.Components.ComponentBase
+    public partial class CoffeeListUpsert : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,16 +105,27 @@ using Cofiel.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 32 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeListEdit.razor"
+#line 39 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeListUpsert.razor"
        
     [Parameter]
     public string Id { get; set; }
 
     private Coffee _coffee { get; set; }
 
+    private string _pageMode = "new";
+
     protected override void OnInitialized()
     {
-        GetData();
+        if(!string.IsNullOrEmpty(Id) && Id.Equals("new"))
+        {
+            _coffee = new Coffee();
+        }
+        else
+        {
+            _pageMode = "edit";
+            GetData();
+        }
+
     }
 
     public void GetData()
@@ -133,8 +144,16 @@ using Cofiel.Services;
     {
         try
         {
-            _coffeeService.UpdateCoffee(_coffee);
-            _navigation.NavigateTo("coffeelist");
+            if (_pageMode == "edit")
+            {
+                _coffeeService.UpdateCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
+            else if (_pageMode == "new")
+            {
+                _coffeeService.InsertCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
         }
         catch (Exception ex)
         {

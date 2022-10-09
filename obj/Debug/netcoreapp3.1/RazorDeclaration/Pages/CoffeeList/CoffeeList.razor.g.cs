@@ -105,7 +105,7 @@ using Cofiel.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 42 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
+#line 43 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
        
     private List<Coffee> _coffees;
 
