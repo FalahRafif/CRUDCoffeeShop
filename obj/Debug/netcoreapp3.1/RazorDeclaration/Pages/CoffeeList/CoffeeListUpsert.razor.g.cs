@@ -96,8 +96,8 @@ using Cofiel.Services;
 #line default
 #line hidden
 #nullable disable
-    [Microsoft.AspNetCore.Components.RouteAttribute("/coffeelist")]
-    public partial class CoffeeList : Microsoft.AspNetCore.Components.ComponentBase
+    [Microsoft.AspNetCore.Components.RouteAttribute("/coffeelist/{Id}")]
+    public partial class CoffeeListUpsert : Microsoft.AspNetCore.Components.ComponentBase
     {
         #pragma warning disable 1998
         protected override void BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder)
@@ -105,20 +105,55 @@ using Cofiel.Services;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 44 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeList.razor"
+#line 39 "D:\Work\C#\NET_CORE\Cofiel\Pages\CoffeeList\CoffeeListUpsert.razor"
        
-    private List<Coffee> _coffees;
+    [Parameter]
+    public string Id { get; set; }
+
+    private Coffee _coffee { get; set; }
+
+    private string _pageMode = "new";
 
     protected override void OnInitialized()
     {
-        _coffees = _coffeeService.GetCoffees();
+        if(!string.IsNullOrEmpty(Id) && Id.Equals("new"))
+        {
+            _coffee = new Coffee();
+        }
+        else
+        {
+            _pageMode = "edit";
+            GetData();
+        }
+
     }
 
-    private void DeleteCoffee(Guid id)
+    private void GetData()
     {
         try
         {
-            _coffeeService.DeleteCoffee(id);
+            _coffee = _coffeeService.GetCoffeeById(Guid.Parse(Id));
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    private void SubmitForm()
+    {
+        try
+        {
+            if (_pageMode == "edit")
+            {
+                _coffeeService.UpdateCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
+            else if (_pageMode == "new")
+            {
+                _coffeeService.InsertCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
         }
         catch (Exception ex)
         {
@@ -129,6 +164,7 @@ using Cofiel.Services;
 #line default
 #line hidden
 #nullable disable
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private NavigationManager _navigation { get; set; }
         [global::Microsoft.AspNetCore.Components.InjectAttribute] private ICoffeeService _coffeeService { get; set; }
     }
 }

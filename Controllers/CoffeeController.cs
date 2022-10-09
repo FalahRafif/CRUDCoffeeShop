@@ -23,9 +23,36 @@ namespace Cofiel.Controllers
             }
         };
 
+        public void DeleteCoffee(Guid id)
+        {
+            var getCoffee = GetCoffeeById(id);
+            _Coffees.Remove(getCoffee);
+        }
+
+        public Coffee GetCoffeeById(Guid id)
+        {
+            return _Coffees.SingleOrDefault(x => x.Id.Equals(id));
+        }
+
         public List<Coffee> GetCoffees()
         {
             return _Coffees;
         }
+
+        public void InsertCoffee(Coffee data)
+        {
+            var id = Guid.NewGuid();
+            data.Id = id;
+
+            _Coffees.Add(data);
+        }
+
+        public void UpdateCoffee(Coffee data)
+        {
+            var getCoffee = GetCoffeeById(data.Id);
+            getCoffee.Name = data.Name;
+        }
+
+
     }
 }

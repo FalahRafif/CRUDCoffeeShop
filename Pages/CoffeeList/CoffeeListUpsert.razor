@@ -1,0 +1,93 @@
+﻿@page "/coffeelist/{Id}"
+@inject ICoffeeService _coffeeService
+@inject NavigationManager _navigation
+
+<h3>Edit Coffee</h3>
+
+<div class="row">
+    <div class="col-sm-12">
+        @*////////////////// Card //////////////////*@
+        <div class="card">
+            <div class="card-body">
+                @*////////////////// Form //////////////////*@
+                <EditForm Model="_coffee" OnSubmit="SubmitForm">
+                    @*html style*@
+                    <div class="form-group">
+                        <label>Id</label>
+                        <input type="text" class="form-control" id="id" name="id" value="@_coffee.Id" disabled />
+                    </div>
+                    @*razor compent style*@
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText class="form-control" id="name" name="name" @bind-Value="_coffee.Name"></InputText>
+                    </div>
+                    @if (_pageMode == "edit")
+                    { 
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    }
+                    else if (_pageMode == "new")
+                    { 
+                        <button type="submit" class="btn btn-primary">Insert</button>
+                    }
+                </EditForm>
+                @*////////////////// End Form //////////////////*@
+            </div>
+        </div>
+        @*////////////////// End Card //////////////////*@
+    </div>
+</div>
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    private Coffee _coffee { get; set; }
+
+    private string _pageMode = "new";
+
+    protected override void OnInitialized()
+    {
+        if(!string.IsNullOrEmpty(Id) && Id.Equals("new"))
+        {
+            _coffee = new Coffee();
+        }
+        else
+        {
+            _pageMode = "edit";
+            GetData();
+        }
+
+    }
+
+    private void GetData()
+    {
+        try
+        {
+            _coffee = _coffeeService.GetCoffeeById(Guid.Parse(Id));
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+
+    private void SubmitForm()
+    {
+        try
+        {
+            if (_pageMode == "edit")
+            {
+                _coffeeService.UpdateCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
+            else if (_pageMode == "new")
+            {
+                _coffeeService.InsertCoffee(_coffee);
+                _navigation.NavigateTo("coffeelist");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+    }
+}

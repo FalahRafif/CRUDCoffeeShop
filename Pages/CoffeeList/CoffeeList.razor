@@ -1,23 +1,45 @@
-﻿@inject ICoffeeService _coffeeService
+﻿@page "/coffeelist"
+@inject ICoffeeService _coffeeService
 
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td></td>
-        </tr>
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Coffee List</h3>
+        <a class="btn btn-primary" href="coffeelist/new">Add Coffee</a>
+        @*////////////////// Card //////////////////*@
+        <div class="card">
+            <div class="card-body">
+                @*////////////////// Table //////////////////*@
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (_coffees.Count() > 0)
+                        {
+                            @foreach (var coffee in _coffees)
+                            {
+                                <tr>
+                                    <th scope="row">@coffee.Id</th>
+                                    <td>@coffee.Name</td>
+                                    <td>
+                                        <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
+                                        <button class="btn btn-danger" @onclick="() => DeleteCoffee(coffee.Id)">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                @*////////////////// End Table //////////////////*@
+            </div>
+        </div>
+        @*////////////////// End Card //////////////////*@
+    </div>
+</div>
 
 @code {
     private List<Coffee> _coffees;
@@ -25,5 +47,17 @@
     protected override void OnInitialized()
     {
         _coffees = _coffeeService.GetCoffees();
+    }
+
+    private void DeleteCoffee(Guid id)
+    {
+        try
+        {
+            _coffeeService.DeleteCoffee(id);
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 }

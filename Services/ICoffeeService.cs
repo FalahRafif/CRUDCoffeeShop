@@ -9,5 +9,13 @@ namespace Cofiel.Services
     interface ICoffeeService
     {
         List<Coffee> GetCoffees();
+
+        Coffee GetCoffeeById(Guid id);
+
+        void UpdateCoffee(Coffee data);
+
+        void InsertCoffee(Coffee data);
+
+        void DeleteCoffee(Guid id);
     }
 }
