@@ -1,0 +1,30 @@
+﻿<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Coffees.Count() > 0)
+        {
+            @foreach (var coffee in Coffees)
+            {
+                <tr>
+                    <th scope="row">@coffee.Id</th>
+                    <td>@coffee.Name</td>
+                    <td>
+                        <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
+                        @*<button class="btn btn-danger" @onclick="() => DeleteCoffee(coffee.Id)">Delete</button>*@
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public List<Coffee> Coffees { get; set; }
+}

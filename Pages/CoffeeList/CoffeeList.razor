@@ -9,56 +9,7 @@
         <div class="card">
             <div class="card-body">
                 @*////////////////// Table //////////////////*@
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (_coffees.Count() > 0)
-                        {
-                            @foreach (var coffee in _coffees)
-                            {
-                                <tr>
-                                    <th scope="row">@coffee.Id</th>
-                                    <td>@coffee.Name</td>
-                                    <td>
-                                        <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
-                                        <button class="btn btn-danger" @onclick="() => DeleteCoffee(coffee.Id)">Delete</button>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-                <table class="table">
-                    <thead class="thead-dark">
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @if (_coffees.Count() > 0)
-                        {
-                            @foreach (var coffee in _coffeesEF)
-                            {
-                                <tr>
-                                    <th scope="row">@coffee.Id</th>
-                                    <td>@coffee.Name</td>
-                                    <td>
-                                        <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
-                                        <button class="btn btn-danger" @onclick="() => DeleteCoffee(coffee.Id)">Delete</button>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+                <CoffeeListTable Coffees="_coffees"></CoffeeListTable>
                 @*////////////////// End Table //////////////////*@
             </div>
         </div>
@@ -68,15 +19,24 @@
 
 @code {
     private List<Coffee> _coffees;
-    private List<Coffee> _coffeesEF;
 
     protected override async Task OnInitializedAsync()
     {
         _coffees = new List<Coffee>();
-        _coffeesEF = new List<Coffee>();
 
-        _coffees = _coffeeService.GetCoffees();
-        _coffeesEF = await _coffeeService.GetCoffeesEFTest();
+        await GetData();
+    }
+
+    private async Task GetData()
+    {
+        try
+        {
+            _coffees = await _coffeeService.GetCoffeesEFTest();
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
     private void DeleteCoffee(int id)
