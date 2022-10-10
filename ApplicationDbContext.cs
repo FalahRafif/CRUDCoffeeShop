@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Cofiel.Models;
+using Cofiel.Models.Ef;
 
-namespace Cofiel.Models
+namespace Cofiel
 {
     public class ApplicationDbContext : DbContext
     {
@@ -13,6 +15,12 @@ namespace Cofiel.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 
+        }
+
+        //regis fluent api
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CoffeeEF());
         }
 
         //regist model

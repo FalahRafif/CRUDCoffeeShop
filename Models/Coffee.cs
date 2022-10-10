@@ -8,10 +8,10 @@ namespace Cofiel.Models
 {
     public class Coffee
     {
-        [Key]
         public int Id { get; set; }
 
-        [Required]
         public string Name { get; set; }
+
+        public string Size { get; set; }
     }
 }
