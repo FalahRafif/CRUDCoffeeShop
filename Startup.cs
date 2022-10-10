@@ -37,7 +37,7 @@ namespace Cofiel
 
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<WeatherForecastService>();
+            services.AddScoped<WeatherForecastService>();
             services.AddScoped<ICoffeeService, CoffeeController>();
         }
 

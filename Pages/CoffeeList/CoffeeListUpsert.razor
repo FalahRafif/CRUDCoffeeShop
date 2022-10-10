@@ -12,21 +12,25 @@
                 @*////////////////// Form //////////////////*@
                 <EditForm Model="_coffee" OnSubmit="SubmitForm">
                     @*html style*@
-                    <div class="form-group">
+                    @*<div class="form-group">
                         <label>Id</label>
                         <input type="text" class="form-control" id="id" name="id" value="@_coffee.Id" disabled />
-                    </div>
+                    </div>*@
                     @*razor compent style*@
                     <div class="form-group">
                         <label>Name</label>
                         <InputText class="form-control" id="name" name="name" @bind-Value="_coffee.Name"></InputText>
                     </div>
+                    <div class="form-group">
+                        <label>Size</label>
+                        <InputText class="form-control" id="size" name="size" @bind-Value="_coffee.Size"></InputText>
+                    </div>
                     @if (_pageMode == "edit")
-                    { 
+                    {
                         <button type="submit" class="btn btn-primary">Update</button>
                     }
                     else if (_pageMode == "new")
-                    { 
+                    {
                         <button type="submit" class="btn btn-primary">Insert</button>
                     }
                 </EditForm>
@@ -44,44 +48,43 @@
 
     private string _pageMode = "new";
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
-        if(!string.IsNullOrEmpty(Id) && Id.Equals("new"))
-        {
-            _coffee = new Coffee();
-        }
-        else
+        _coffee = new Coffee();
+
+        if (!string.IsNullOrEmpty(Id) && int.TryParse(Id, out int value))
         {
             _pageMode = "edit";
-            GetData();
+            await GetData();
         }
 
     }
 
-    private void GetData()
+    private async Task GetData()
     {
         try
         {
-            _coffee = _coffeeService.GetCoffeeById(Convert.ToInt32(Id));
+            _coffee = await _coffeeService.GetCoffeeById(Convert.ToInt32(Id));
         }
         catch (Exception ex)
         {
             throw ex;
         }
+        StateHasChanged();
     }
 
-    private void SubmitForm()
+    private async Task SubmitForm()
     {
         try
         {
             if (_pageMode == "edit")
             {
-                _coffeeService.UpdateCoffee(_coffee);
+                await _coffeeService.UpdateCoffee(_coffee);
                 _navigation.NavigateTo("coffeelist");
             }
             else if (_pageMode == "new")
             {
-                _coffeeService.InsertCoffee(_coffee);
+                await _coffeeService.InsertCoffee(_coffee);
                 _navigation.NavigateTo("coffeelist");
             }
         }

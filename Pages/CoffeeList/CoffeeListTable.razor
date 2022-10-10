@@ -3,6 +3,7 @@
         <tr>
             <th scope="col">Id</th>
             <th scope="col">Name</th>
+            <th scope="col">Size</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -14,9 +15,10 @@
                 <tr>
                     <th scope="row">@coffee.Id</th>
                     <td>@coffee.Name</td>
+                    <td>@coffee.Size</td>
                     <td>
                         <a class="btn btn-warning" href="coffeelist/@coffee.Id">Edit</a>
-                        @*<button class="btn btn-danger" @onclick="() => DeleteCoffee(coffee.Id)">Delete</button>*@
+                        <button class="btn btn-danger" @onclick="@(() => OnDeleteClick.InvokeAsync(Convert.ToInt32(coffee.Id)))">Delete</button>
                     </td>
                 </tr>
             }
@@ -27,4 +29,7 @@
 @code {
     [Parameter]
     public List<Coffee> Coffees { get; set; }
+
+    [Parameter]
+    public EventCallback<int> OnDeleteClick { get; set; }
 }

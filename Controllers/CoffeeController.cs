@@ -20,7 +20,8 @@ namespace Cofiel.Controllers
         {
             var data = await GetCoffeeById(id);
 
-            await Task.Run(() => _db.Coffee.Remove(data));
+            _db.Coffee.Remove(data);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<Coffee> GetCoffeeById(int id)
@@ -31,9 +32,10 @@ namespace Cofiel.Controllers
                     .Select(coffee => new Coffee
                     {
                         Id = coffee.Id,
-                        Name = coffee.Name
+                        Name = coffee.Name,
+                        Size = coffee.Size                        
                     })
-                    .ToList());
+                    .FirstOrDefault());
 
             return data;
         }
@@ -45,7 +47,8 @@ namespace Cofiel.Controllers
                     .Select(coffee => new Coffee
                     {
                         Id = coffee.Id,
-                        Name = coffee.Name
+                        Name = coffee.Name,
+                        Size = coffee.Size
                     })
                     .ToList());
 
@@ -54,12 +57,14 @@ namespace Cofiel.Controllers
 
         public async Task InsertCoffee(Coffee data)
         {
-            await Task.Run(() => _db.Coffee.AddAsync(data));
+            _db.Coffee.Add(data);
+            await _db.SaveChangesAsync();
         }
 
         public async Task UpdateCoffee(Coffee data)
         {
-            await Task.Run(() => _db.Coffee.Update(data));
+            _db.Coffee.Update(data);
+            await _db.SaveChangesAsync();
         }
 
 

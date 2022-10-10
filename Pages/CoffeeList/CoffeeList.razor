@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-body">
                 @*////////////////// Table //////////////////*@
-                <CoffeeListTable Coffees="_coffees"></CoffeeListTable>
+                <CoffeeListTable Coffees="_coffees" OnDeleteClick="DeleteCoffee"></CoffeeListTable>
                 @*////////////////// End Table //////////////////*@
             </div>
         </div>
@@ -31,23 +31,29 @@
     {
         try
         {
-            _coffees = await _coffeeService.GetCoffeesEFTest();
+            _coffees = await _coffeeService.GetCoffees();
         }
         catch (Exception ex)
         {
             throw ex;
         }
+        StateHasChanged();
     }
 
-    private void DeleteCoffee(int id)
+    private async void DeleteCoffee(int id)
     {
+        Console.WriteLine("==========");
+        Console.WriteLine(id);
+        Console.WriteLine("==========");
+
         try
         {
-            _coffeeService.DeleteCoffee(id);
+            await _coffeeService.DeleteCoffee(id);
         }
         catch (Exception ex)
         {
             throw ex;
         }
+        StateHasChanged();
     }
 }
