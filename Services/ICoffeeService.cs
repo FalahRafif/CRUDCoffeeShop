@@ -8,16 +8,14 @@ namespace Cofiel.Services
 {
     interface ICoffeeService
     {
-        List<Coffee> GetCoffees();
+        Task<List<Coffee>> GetCoffees();
 
-        Coffee GetCoffeeById(int id);
+        Task<Coffee> GetCoffeeById(int id);
 
-        void UpdateCoffee(Coffee data);
+        Task UpdateCoffee(Coffee data);
 
-        void InsertCoffee(Coffee data);
+        Task InsertCoffee(Coffee data);
 
-        void DeleteCoffee(int id);
-
-        Task<List<Coffee>> GetCoffeesEFTest();
+        Task DeleteCoffee(int id);
     }
 }

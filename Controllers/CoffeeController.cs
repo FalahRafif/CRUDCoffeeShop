@@ -16,42 +16,20 @@ namespace Cofiel.Controllers
             _db = db;
         }
 
-        private List<Coffee> _Coffees = new List<Coffee>
+        public async Task DeleteCoffee(int id)
         {
-            new Coffee
-            {
-                Id = 0,
-                Name = "Kopi Hitam"
-            },
-            new Coffee
-            {
-                Id = 1,
-                Name = "Kopi Abu-Abu"
-            }
-        };
+            var data = await GetCoffeeById(id);
 
-        public void DeleteCoffee(int id)
-        {
-            var getCoffee = GetCoffeeById(id);
-            _Coffees.Remove(getCoffee);
+            await Task.Run(() => _db.Coffee.Remove(data));
         }
 
-        public Coffee GetCoffeeById(int id)
-        {
-            return _Coffees.SingleOrDefault(x => x.Id.Equals(id));
-        }
-
-        public List<Coffee> GetCoffees()
-        {
-            return _Coffees;
-        }
-
-        public async Task<List<Coffee>> GetCoffeesEFTest()
+        public async Task<Coffee> GetCoffeeById(int id)
         {
             var data = await Task.Run(() =>
                 _db.Coffee
-                    .Select(coffee => new Coffee 
-                    { 
+                    .Where(x => x.Id.Equals(id))
+                    .Select(coffee => new Coffee
+                    {
                         Id = coffee.Id,
                         Name = coffee.Name
                     })
@@ -60,18 +38,28 @@ namespace Cofiel.Controllers
             return data;
         }
 
-        public void InsertCoffee(Coffee data)
+        public async Task<List<Coffee>> GetCoffees()
         {
-            var id = 3;
-            data.Id = id;
+            var data = await Task.Run(() =>
+                _db.Coffee
+                    .Select(coffee => new Coffee
+                    {
+                        Id = coffee.Id,
+                        Name = coffee.Name
+                    })
+                    .ToList());
 
-            _Coffees.Add(data);
+            return data;
         }
 
-        public void UpdateCoffee(Coffee data)
+        public async Task InsertCoffee(Coffee data)
         {
-            var getCoffee = GetCoffeeById(data.Id);
-            getCoffee.Name = data.Name;
+            await Task.Run(() => _db.Coffee.AddAsync(data));
+        }
+
+        public async Task UpdateCoffee(Coffee data)
+        {
+            await Task.Run(() => _db.Coffee.Update(data));
         }
 
 
