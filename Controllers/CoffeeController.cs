@@ -9,6 +9,13 @@ namespace Cofiel.Controllers
 {
     public class CoffeeController : ICoffeeService
     {
+        private readonly ApplicationDbContext _db;
+
+        public CoffeeController(ApplicationDbContext db) //constructer
+        {
+            _db = db;
+        }
+
         private List<Coffee> _Coffees = new List<Coffee>
         {
             new Coffee
@@ -37,6 +44,20 @@ namespace Cofiel.Controllers
         public List<Coffee> GetCoffees()
         {
             return _Coffees;
+        }
+
+        public async Task<List<Coffee>> GetCoffeesEFTest()
+        {
+            var data = await Task.Run(() =>
+                _db.Coffee
+                    .Select(coffee => new Coffee 
+                    { 
+                        Id = coffee.Id,
+                        Name = coffee.Name
+                    })
+                    .ToList());
+
+            return data;
         }
 
         public void InsertCoffee(Coffee data)

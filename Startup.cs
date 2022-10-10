@@ -32,13 +32,13 @@ namespace Cofiel
         {
             //include EF DbContext to Pipeline
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllersWithViews();//add api call
-            services.AddRazorPages().AddRazorRuntimeCompilation(); // using package
+            //services.AddControllersWithViews();//add api call
+            //services.AddRazorPages().AddRazorRuntimeCompilation(); // using package
 
-            //services.AddRazorPages();
+            services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            //services.AddSingleton<ICoffeeService, CoffeeController>();
+            services.AddScoped<ICoffeeService, CoffeeController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

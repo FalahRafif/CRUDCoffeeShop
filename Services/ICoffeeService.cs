@@ -17,5 +17,7 @@ namespace Cofiel.Services
         void InsertCoffee(Coffee data);
 
         void DeleteCoffee(int id);
+
+        Task<List<Coffee>> GetCoffeesEFTest();
     }
 }
