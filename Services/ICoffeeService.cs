@@ -10,12 +10,14 @@ namespace Cofiel.Services
     {
         List<Coffee> GetCoffees();
 
-        Coffee GetCoffeeById(Guid id);
+        Coffee GetCoffeeById(int id);
 
         void UpdateCoffee(Coffee data);
 
         void InsertCoffee(Coffee data);
 
-        void DeleteCoffee(Guid id);
+        void DeleteCoffee(int id);
+
+        Task<List<Coffee>> GetCoffeesEFTest();
     }
 }

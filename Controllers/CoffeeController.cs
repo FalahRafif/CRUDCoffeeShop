@@ -9,27 +9,34 @@ namespace Cofiel.Controllers
 {
     public class CoffeeController : ICoffeeService
     {
+        private readonly ApplicationDbContext _db;
+
+        public CoffeeController(ApplicationDbContext db) //constructer
+        {
+            _db = db;
+        }
+
         private List<Coffee> _Coffees = new List<Coffee>
         {
             new Coffee
             {
-                Id = Guid.NewGuid(),
+                Id = 0,
                 Name = "Kopi Hitam"
             },
             new Coffee
             {
-                Id = Guid.NewGuid(),
+                Id = 1,
                 Name = "Kopi Abu-Abu"
             }
         };
 
-        public void DeleteCoffee(Guid id)
+        public void DeleteCoffee(int id)
         {
             var getCoffee = GetCoffeeById(id);
             _Coffees.Remove(getCoffee);
         }
 
-        public Coffee GetCoffeeById(Guid id)
+        public Coffee GetCoffeeById(int id)
         {
             return _Coffees.SingleOrDefault(x => x.Id.Equals(id));
         }
@@ -39,9 +46,23 @@ namespace Cofiel.Controllers
             return _Coffees;
         }
 
+        public async Task<List<Coffee>> GetCoffeesEFTest()
+        {
+            var data = await Task.Run(() =>
+                _db.Coffee
+                    .Select(coffee => new Coffee 
+                    { 
+                        Id = coffee.Id,
+                        Name = coffee.Name
+                    })
+                    .ToList());
+
+            return data;
+        }
+
         public void InsertCoffee(Coffee data)
         {
-            var id = Guid.NewGuid();
+            var id = 3;
             data.Id = id;
 
             _Coffees.Add(data);
