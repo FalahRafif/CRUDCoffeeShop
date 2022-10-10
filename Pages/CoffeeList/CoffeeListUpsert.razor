@@ -62,7 +62,7 @@
     {
         try
         {
-            _coffee = _coffeeService.GetCoffeeById(Guid.Parse(Id));
+            _coffee = _coffeeService.GetCoffeeById(Convert.ToInt32(Id));
         }
         catch (Exception ex)
         {

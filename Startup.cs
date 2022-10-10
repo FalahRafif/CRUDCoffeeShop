@@ -12,6 +12,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Cofiel.Controllers;
 using Cofiel.Services;
+using Cofiel.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Cofiel
 {
@@ -28,10 +30,15 @@ namespace Cofiel
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            //include EF DbContext to Pipeline
+            services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddControllersWithViews();//add api call
+            //services.AddRazorPages().AddRazorRuntimeCompilation(); // using package
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<ICoffeeService, CoffeeController>();
+            services.AddScoped<ICoffeeService, CoffeeController>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
