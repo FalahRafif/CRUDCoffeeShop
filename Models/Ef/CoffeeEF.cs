@@ -14,7 +14,8 @@ namespace Cofiel.Models.Ef
             builder.HasKey(pk => pk.Id);
             builder.Property(pk => pk.Id).ValueGeneratedOnAdd();
 
-            builder.Property(p => p.Name);
+            builder.Property(p => p.Name).HasMaxLength(100);
+            builder.Property(p => p.Size).HasMaxLength(3);
         }
     }
 }
